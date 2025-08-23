@@ -132,6 +132,19 @@ body {
     background: var(--text-primary);
     margin: 3px 0;
     transition: 0.3s;
+    border-radius: 2px;
+}
+
+.hamburger.active span:nth-child(1) {
+    transform: rotate(-45deg) translate(-5px, 6px);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(45deg) translate(-5px, -6px);
 }
 
 .hero {
@@ -620,26 +633,37 @@ body {
         left: -100%;
         top: 70px;
         flex-direction: column;
-        background-color: white;
+        background-color: var(--bg-primary);
         width: 100%;
         text-align: center;
         transition: 0.3s;
-        box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+        box-shadow: 0 10px 27px rgba(0, 0, 0, 0.3);
         padding: 2rem 0;
+        border-top: 1px solid var(--border-color);
     }
     
     .nav-menu.active {
         left: 0;
     }
     
+    .nav-menu li {
+        margin: 1rem 0;
+    }
+    
     .hero-container {
         grid-template-columns: 1fr;
         gap: 2rem;
         text-align: center;
+        padding: 0 1rem;
     }
     
     .hero-content h1 {
         font-size: 2.5rem;
+    }
+    
+    .hero-content p {
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
     }
     
     .about-content {
@@ -667,27 +691,79 @@ body {
     }
     
     .placeholder-image {
-        width: 300px;
-        height: 250px;
+        width: 280px;
+        height: 220px;
+    }
+    
+    .container {
+        padding: 0 1rem;
+    }
+    
+    .nav-container {
+        padding: 0 1rem;
+    }
+    
+    .btn {
+        padding: 12px 24px;
+        font-size: 0.95rem;
+        min-width: 120px;
+    }
+    
+    .cta-buttons {
+        gap: 0.8rem;
     }
 }
 
 @media (max-width: 480px) {
+    .hero {
+        padding: 100px 0 60px;
+        min-height: 90vh;
+    }
+    
     .hero-content h1 {
-        font-size: 2rem;
+        font-size: 1.8rem;
+        line-height: 1.3;
+        margin-bottom: 1rem;
+    }
+    
+    .hero-content p {
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
     }
     
     .section-header h2 {
-        font-size: 2rem;
+        font-size: 1.8rem;
+    }
+    
+    .section-header p {
+        font-size: 1rem;
     }
     
     .services-grid {
         grid-template-columns: 1fr;
     }
     
+    .service-card {
+        padding: 1.5rem;
+        margin: 0 0.5rem;
+    }
+    
+    .service-card h3 {
+        font-size: 1.3rem;
+    }
+    
     .youtube-grid {
         grid-template-columns: 1fr;
-        gap: 2rem;
+        gap: 1.5rem;
+    }
+    
+    .youtube-card {
+        padding: 1.5rem;
+        margin: 0 0.5rem;
+    }
+    
+    .youtube-creator h3 {
+        font-size: 1.4rem;
     }
     
     .youtube-stats {
@@ -702,5 +778,105 @@ body {
     .stats {
         grid-template-columns: 1fr;
         gap: 1.5rem;
+    }
+    
+    .stat h4 {
+        font-size: 2rem;
+    }
+    
+    .about-text h3 {
+        font-size: 1.5rem;
+    }
+    
+    .about-text p {
+        font-size: 1rem;
+    }
+    
+    .leadership-section h4 {
+        font-size: 1.3rem;
+    }
+    
+    .leader-contact {
+        min-width: auto;
+        width: 100%;
+        margin: 0 0.5rem;
+    }
+    
+    .leader-contact h3 {
+        font-size: 1.3rem;
+    }
+    
+    .placeholder-image {
+        width: 250px;
+        height: 200px;
+    }
+    
+    .placeholder-image::before {
+        font-size: 4rem;
+    }
+}
+
+/* Mobile-specific improvements */
+@media (hover: none) {
+    .service-card:hover,
+    .youtube-card:hover {
+        transform: none;
+    }
+    
+    .btn:hover {
+        transform: none;
+    }
+}
+
+/* Extra small screens */
+@media (max-width: 320px) {
+    .hero-content h1 {
+        font-size: 1.5rem;
+    }
+    
+    .section-header h2 {
+        font-size: 1.5rem;
+    }
+    
+    .btn {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+    
+    .placeholder-image {
+        width: 200px;
+        height: 160px;
+    }
+    
+    .service-card,
+    .youtube-card,
+    .leader-contact {
+        margin: 0;
+        padding: 1rem;
+    }
+}
+
+/* Improve touch targets for mobile */
+@media (max-width: 768px) {
+    .nav-menu a {
+        padding: 1rem;
+        display: block;
+        font-size: 1.1rem;
+    }
+    
+    .hamburger {
+        padding: 12px;
+        min-width: 44px;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .theme-toggle {
+        padding: 12px;
+        min-width: 44px;
+        min-height: 44px;
+        font-size: 1.3rem;
     }
 }

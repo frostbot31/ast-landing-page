@@ -10,12 +10,16 @@ document.addEventListener('DOMContentLoaded', function() {
     hamburger.addEventListener('click', function() {
         hamburger.classList.toggle('active');
         navMenu.classList.toggle('active');
+        // Prevent body scroll when menu is open
+        document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
     });
 
     navLinks.forEach(link => {
         link.addEventListener('click', function() {
             hamburger.classList.remove('active');
             navMenu.classList.remove('active');
+            // Restore body scroll when menu closes
+            document.body.style.overflow = '';
         });
     });
 
