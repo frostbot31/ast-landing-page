@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Astronaut Team Offical Webpage</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo">
+                    <img src="ast logo.png" alt="The Astronaut Team" class="logo-img">
+                    <h2>The Astronaut Team (AST)</h2>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#youtube">YouTube</a></li>
+                    <li><a href="#services">Projects</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="weather.html">Weather</a></li>
+                    <li><button class="theme-toggle" aria-label="Toggle theme">🌙</button></li>
+                </ul>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="hero-container">
+                <div class="hero-content">
+                    <h1>Innovating thru early adoption.</h1>
+                    <p>A dynamic unoffical government and e-sports organization based in Texas, fostering leadership, creativity, and community through active projects and initiatives.</p>
+                    <div class="cta-buttons">
+                        <a href="#services" class="btn btn-primary">Our Projects</a>
+                        <a href="#contact" class="btn btn-secondary">Apply Now</a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <div class="placeholder-image"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="about">
+            <div class="container">
+                <div class="section-header">
+                    <h2>About The Astronaut Team</h2>
+                </div>
+                <div class="about-content">
+                    <div class="about-text">
+                        <h3>Our Mission</h3>
+                        <p>We empower people to make a real impact through government simulation, gaming initiatives, and community projects. Our organization develops leadership skills while creating meaningful change in our communities.</p>
+                        <div class="leadership-section">
+                            <h4>Leadership Team</h4>
+                            <div class="leader">
+                                <strong>President Reno</strong> - Top Executive
+                            </div>
+                            <div class="leader">
+                                <strong>VP Frostbot</strong> - Vice President of Operations
+                            </div>
+                        </div>
+                        <div class="stats">
+                            <div class="stat">
+                                <h4>3+</h4>
+                                <p>Active Projects</p>
+                            </div>
+                            <div class="stat">
+                                <h4>100%</h4>
+                                <p>Innovation</p>
+                            </div>
+                            <div class="stat">
+                                <h4>TX</h4>
+                                <p>Based</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="about-image">
+                        <div class="placeholder-image"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="services" class="services">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Our Projects & Focus Areas</h2>
+                    <p>Active initiatives driving teen leadership and community impact</p>
+                </div>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon">🏛️</div>
+                        <h3>Government</h3>
+                        <p>Established on July 4th, 2025, we built this governmental system to keep order and peace in AST.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">🎮</div>
+                        <h3>E-sports</h3>
+                        <p>E-sports teams, and community gaming events for all skill levels.</p>
+                    </div>
+                    <div class="service-card" style="cursor: pointer;" onclick="window.location.href='weather.html'">
+                        <div class="service-icon">⛈️</div>
+                        <h3>AST Weather Service</h3>
+                        <p>Keeping the AST members safe with the AST Weather Service, built and led by AST Frostbot</p>
+                        <div style="margin-top: 1rem;">
+                            <a href="weather.html" class="btn btn-secondary" style="font-size: 0.9rem; padding: 8px 16px;">View Service →</a>
+                        </div>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">🎯</div>
+                        <h3>Application Process</h3>
+                        <p>Selective membership through our rigorous application and interview process with top leadership.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="youtube" class="youtube-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>YouTube Presence</h2>
+                    <p>Our leadership showcases gaming content with 1000+ combined subscribers</p>
+                    <div class="update-notice">
+                        <small>*Subscriber counts last updated: 8/27/2025</small>
+                    </div>
+                </div>
+                <div class="youtube-grid">
+                    <div class="youtube-card">
+                        <div class="youtube-creator">
+                            <h3>President Reno</h3>
+                            <p>Fortnite gameplay, and other gaming content</p>
+                            <div class="subscriber-count">
+                                <img src="reno sub count.png" alt="Reno Subscriber Count" class="sub-count-img">
+                            </div>
+                            <div class="youtube-icon">📺</div>
+                        </div>
+                    </div>
+                    <div class="youtube-card">
+                        <div class="youtube-creator">
+                            <h3>VP Frostbot</h3>
+                            <p>Gaming variety, meme shorts mainly</p>
+                            <div class="subscriber-count">
+                                <img src="frostbot sub count.png" alt="Frostbot Subscriber Count" class="sub-count-img">
+                            </div>
+                            <div class="youtube-icon">🎬</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="youtube-stats">
+                    <div class="stat">
+                        <h4>1000+</h4>
+                        <p>Combined Subscribers</p>
+                    </div>
+                    <div class="stat">
+                        <h4>Gaming</h4>
+                        <p>Content Focus</p>
+                    </div>
+                    <div class="stat">
+                        <h4>Active</h4>
+                        <p>Content Creation</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Contact Leadership</h2>
+                    <p>Reach out to our top leadership team</p>
+                </div>
+                <div class="leadership-contact">
+                    <div class="leader-contact">
+                        <h3>President Reno</h3>
+                        <p>Discord: <strong>astreno_</strong></p>
+                    </div>
+                    <div class="leader-contact">
+                        <h3>VP Frostbot</h3>
+                        <p>Discord: <strong>frostbot31</strong></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2025 The Astronaut Team. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
