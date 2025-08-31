@@ -1,4 +1,30 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // AST Foundation Day Counter - Run this first
+    function updateDaysCounter() {
+        try {
+            const foundingDate = new Date('2021-12-15'); // AST founding date
+            const currentDate = new Date();
+            const timeDifference = currentDate - foundingDate;
+            const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+            
+            const counter = document.getElementById('days-counter');
+            if (counter) {
+                counter.textContent = daysDifference.toLocaleString();
+                console.log('Day counter updated:', daysDifference);
+            } else {
+                console.log('Day counter element not found');
+            }
+        } catch (error) {
+            console.error('Error updating day counter:', error);
+        }
+    }
+
+    // Update counter immediately
+    updateDaysCounter();
+    
+    // Update counter every hour (3600000 milliseconds)
+    setInterval(updateDaysCounter, 3600000);
+
     // Set dark mode as default
     document.documentElement.removeAttribute('data-theme');
     
@@ -88,18 +114,20 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     const contactForm = document.querySelector('.contact-form');
-    contactForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const formData = new FormData(this);
-        const formObject = {};
-        formData.forEach((value, key) => {
-            formObject[key] = value;
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const formObject = {};
+            formData.forEach((value, key) => {
+                formObject[key] = value;
+            });
+            
+            alert('Thank you for your message! We\'ll get back to you soon.');
+            this.reset();
         });
-        
-        alert('Thank you for your message! We\'ll get back to you soon.');
-        this.reset();
-    });
+    }
 
     const observerOptions = {
         threshold: 0.1,
@@ -122,5 +150,6 @@ document.addEventListener('DOMContentLoaded', function() {
         el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
         observer.observe(el);
     });
+
 
 });

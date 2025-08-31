@@ -515,6 +515,32 @@ body {
     margin-bottom: 1rem;
 }
 
+.ast-founding {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 2px solid var(--border-color);
+}
+
+.ast-founding h4 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+}
+
+.ast-founding p {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 1rem;
+}
+
+.days-highlight {
+    font-weight: 700;
+    color: var(--text-accent);
+    font-size: 1.1em;
+    transition: all 0.3s ease;
+}
+
 .rocket-league-section {
     padding: 80px 0;
     background: var(--bg-primary);
