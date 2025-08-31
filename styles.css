@@ -496,6 +496,150 @@ body {
     opacity: 0.8;
 }
 
+.esports-achievements {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 2px solid var(--border-color);
+}
+
+.esports-achievements h4 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+}
+
+.esports-achievements p {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 1rem;
+}
+
+.rocket-league-section {
+    padding: 80px 0;
+    background: var(--bg-primary);
+}
+
+.achievements-content {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.achievement-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-bottom: 4rem;
+}
+
+.stat-card {
+    background: var(--card-bg);
+    padding: 2rem;
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+}
+
+.stat-card h3 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-accent);
+    margin-bottom: 0.5rem;
+}
+
+.stat-card p {
+    color: var(--text-secondary);
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+.champions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 3rem;
+    margin-bottom: 4rem;
+}
+
+.champion-card {
+    background: var(--card-bg);
+    padding: 3rem 2rem;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.champion-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(255, 165, 0, 0.3);
+}
+
+.champion-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #ffa500, #ff6b35);
+}
+
+.champion-icon {
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+}
+
+.champion-card h3 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.champion-title {
+    font-size: 1rem;
+    color: var(--text-accent);
+    font-weight: 600;
+    margin-bottom: 1.5rem !important;
+}
+
+.champion-card p:not(.champion-title) {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 0;
+}
+
+.tournament-highlights {
+    background: var(--card-bg);
+    padding: 3rem;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--border-color);
+    text-align: center;
+}
+
+.tournament-highlights h3 {
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+}
+
+.tournament-highlights p {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    font-size: 1.1rem;
+}
 
 .contact {
     padding: 80px 0;
@@ -712,6 +856,26 @@ body {
     .cta-buttons {
         gap: 0.8rem;
     }
+    
+    .achievement-stats {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        margin-bottom: 3rem;
+    }
+    
+    .champions-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        margin-bottom: 3rem;
+    }
+    
+    .champion-card {
+        padding: 2rem 1.5rem;
+    }
+    
+    .tournament-highlights {
+        padding: 2rem;
+    }
 }
 
 @media (max-width: 480px) {
@@ -813,6 +977,36 @@ body {
     
     .placeholder-image::before {
         font-size: 4rem;
+    }
+    
+    .stat-card {
+        padding: 1.5rem;
+    }
+    
+    .stat-card h3 {
+        font-size: 2rem;
+    }
+    
+    .champion-card {
+        padding: 1.5rem;
+        margin: 0 0.5rem;
+    }
+    
+    .champion-card h3 {
+        font-size: 1.5rem;
+    }
+    
+    .champion-icon {
+        font-size: 3rem;
+    }
+    
+    .tournament-highlights {
+        padding: 1.5rem;
+        margin: 0 0.5rem;
+    }
+    
+    .tournament-highlights h3 {
+        font-size: 1.5rem;
     }
 }
 
