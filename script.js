@@ -151,5 +151,161 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(el);
     });
 
+    // Admin panel integration
+    function loadAdminUpdates() {
+        // Load hero content
+        const heroTitle = localStorage.getItem('ast_hero_title');
+        const heroDesc = localStorage.getItem('ast_hero_description');
+        
+        if (heroTitle) {
+            const titleElement = document.querySelector('.hero h1');
+            if (titleElement) titleElement.textContent = heroTitle;
+        }
+        
+        if (heroDesc) {
+            const descElement = document.querySelector('.hero p');
+            if (descElement) descElement.textContent = heroDesc;
+        }
+
+        // Load about content
+        const missionText = localStorage.getItem('ast_mission_text');
+        const achievementsText = localStorage.getItem('ast_achievements_text');
+        
+        if (missionText) {
+            const missionElement = document.querySelector('.about-text p');
+            if (missionElement) missionElement.textContent = missionText;
+        }
+        
+        if (achievementsText) {
+            const achievementsElement = document.querySelector('.esports-achievements p');
+            if (achievementsElement) achievementsElement.textContent = achievementsText;
+        }
+
+        // Load leadership content
+        const presidentInfo = localStorage.getItem('ast_president_info');
+        const speakerInfo = localStorage.getItem('ast_speaker_info');
+        const vpInfo = localStorage.getItem('ast_vp_info');
+        const tournamentHighlight = localStorage.getItem('ast_tournament_highlight');
+        
+        if (presidentInfo) {
+            const presidentElement = document.querySelector('.leader:nth-child(1)');
+            if (presidentElement) {
+                presidentElement.innerHTML = `<strong>President Reno</strong> - ${presidentInfo}`;
+            }
+        }
+        
+        if (speakerInfo) {
+            const speakerElement = document.querySelector('.leader:nth-child(2)');
+            if (speakerElement) {
+                speakerElement.innerHTML = `<strong>Speaker Michael</strong> - ${speakerInfo}`;
+            }
+        }
+        
+        if (vpInfo) {
+            const vpElement = document.querySelector('.leader:nth-child(3)');
+            if (vpElement) {
+                vpElement.innerHTML = `<strong>VP Frostbot</strong> - ${vpInfo}`;
+            }
+        }
+        
+        if (tournamentHighlight) {
+            const tournamentElement = document.querySelector('.tournament-highlights p');
+            if (tournamentElement) tournamentElement.textContent = tournamentHighlight;
+        }
+
+        // Load services content
+        const governmentDesc = localStorage.getItem('ast_government_desc');
+        const esportsDesc = localStorage.getItem('ast_esports_desc');
+        const weatherDesc = localStorage.getItem('ast_weather_desc');
+        
+        if (governmentDesc) {
+            const govElement = document.querySelector('.service-card:nth-child(1) p');
+            if (govElement) govElement.textContent = governmentDesc;
+        }
+        
+        if (esportsDesc) {
+            const esportsElement = document.querySelector('.service-card:nth-child(2) p');
+            if (esportsElement) esportsElement.textContent = esportsDesc;
+        }
+        
+        if (weatherDesc) {
+            const weatherElement = document.querySelector('.service-card:nth-child(3) p');
+            if (weatherElement) weatherElement.textContent = weatherDesc;
+        }
+    }
+
+    // Listen for messages from admin panel
+    window.addEventListener('message', function(event) {
+        if (event.data && event.data.type === 'ast_admin_update') {
+            const { section, data } = event.data;
+            
+            switch (section) {
+                case 'hero':
+                    if (data.title) {
+                        const titleElement = document.querySelector('.hero h1');
+                        if (titleElement) titleElement.textContent = data.title;
+                    }
+                    if (data.description) {
+                        const descElement = document.querySelector('.hero p');
+                        if (descElement) descElement.textContent = data.description;
+                    }
+                    break;
+                    
+                case 'about':
+                    if (data.mission) {
+                        const missionElement = document.querySelector('.about-text p');
+                        if (missionElement) missionElement.textContent = data.mission;
+                    }
+                    if (data.achievements) {
+                        const achievementsElement = document.querySelector('.esports-achievements p');
+                        if (achievementsElement) achievementsElement.textContent = data.achievements;
+                    }
+                    break;
+                    
+                case 'leadership':
+                    if (data.president) {
+                        const presidentElement = document.querySelector('.leader:nth-child(1)');
+                        if (presidentElement) {
+                            presidentElement.innerHTML = `<strong>President Reno</strong> - ${data.president}`;
+                        }
+                    }
+                    if (data.speaker) {
+                        const speakerElement = document.querySelector('.leader:nth-child(2)');
+                        if (speakerElement) {
+                            speakerElement.innerHTML = `<strong>Speaker Michael</strong> - ${data.speaker}`;
+                        }
+                    }
+                    if (data.vp) {
+                        const vpElement = document.querySelector('.leader:nth-child(3)');
+                        if (vpElement) {
+                            vpElement.innerHTML = `<strong>VP Frostbot</strong> - ${data.vp}`;
+                        }
+                    }
+                    if (data.tournament) {
+                        const tournamentElement = document.querySelector('.tournament-highlights p');
+                        if (tournamentElement) tournamentElement.textContent = data.tournament;
+                    }
+                    break;
+                    
+                case 'services':
+                    if (data.government) {
+                        const govElement = document.querySelector('.service-card:nth-child(1) p');
+                        if (govElement) govElement.textContent = data.government;
+                    }
+                    if (data.esports) {
+                        const esportsElement = document.querySelector('.service-card:nth-child(2) p');
+                        if (esportsElement) esportsElement.textContent = data.esports;
+                    }
+                    if (data.weather) {
+                        const weatherElement = document.querySelector('.service-card:nth-child(3) p');
+                        if (weatherElement) weatherElement.textContent = data.weather;
+                    }
+                    break;
+            }
+        }
+    });
+
+    // Load any existing admin updates on page load
+    loadAdminUpdates();
 
 });
