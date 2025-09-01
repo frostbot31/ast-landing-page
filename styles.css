@@ -649,9 +649,11 @@ body {
     background: var(--card-bg);
     padding: 3rem;
     border-radius: 20px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-    border: 1px solid var(--border-color);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2), 0 0 30px rgba(255, 215, 0, 0.6);
+    border: 1px solid rgba(255, 215, 0, 0.8);
     text-align: center;
+    position: relative;
+    overflow: hidden;
 }
 
 .tournament-highlights h3 {
