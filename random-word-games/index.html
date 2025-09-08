@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>game selection for random things</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>games claude made off of 5 words</h1>
+            <p class="tagline">i fed 5 random words into claude and made it build off of that</p>
+        </header>
+
+        <div class="game-selection">
+            <div class="game-card">
+                <div class="game-header">
+                    <h2>Four Lives Insurance (LIGHT MODE ONLY)</h2>
+                    <span class="game-status available">Available</span>
+                </div>
+                <div class="game-description">
+                    <p>Navigate life's risks and make smart insurance choices in this interactive risk assessment game.</p>
+                    <div class="game-features">
+                        <span class="feature">Risk Management</span>
+                        <span class="feature">Live Updates</span>
+                        <span class="feature">Strategic Planning</span>
+                    </div>
+                </div>
+                <div class="game-actions">
+                    <a href="insurance-risk-game/" class="play-btn">Play Game</a>
+                    <button class="info-btn" onclick="showGameInfo('insurance')">More Info</button>
+                </div>
+            </div>
+
+            <div class="game-card coming-soon">
+                <div class="game-header">
+                    <h2>Coming Soon</h2>
+                    <span class="game-status upcoming">In Development</span>
+                </div>
+                <div class="game-description">
+                    <p>More exciting word games are on the way! Check back soon for new challenges.</p>
+                </div>
+                <div class="game-actions">
+                    <button class="play-btn" disabled>Coming Soon</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="game-stats">
+            <div class="stat">
+                <span class="stat-number">1</span>
+                <span class="stat-label">Games Available</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number">∞</span>
+                <span class="stat-label">Possibilities</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number">100%</span>
+                <span class="stat-label">Fun Guaranteed</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Info Modal -->
+    <div class="modal" id="gameModal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div id="modalContent">
+                <!-- Content will be inserted by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

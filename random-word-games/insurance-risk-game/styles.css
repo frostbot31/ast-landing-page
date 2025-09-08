@@ -1,0 +1,344 @@
+/* Thin, minimalist design inspired by the word "thin" */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+    line-height: 1.6;
+    color: #333;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+header h1 {
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: #2c3e50;
+    margin-bottom: 10px;
+    letter-spacing: -1px;
+}
+
+.tagline {
+    font-size: 1.1rem;
+    color: #7f8c8d;
+    font-weight: 300;
+}
+
+/* Live stats with thin lines and minimal styling */
+.live-stats {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 40px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+}
+
+.stat {
+    text-align: center;
+}
+
+.stat .label {
+    display: block;
+    font-size: 0.9rem;
+    color: #7f8c8d;
+    font-weight: 300;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.stat .value {
+    display: block;
+    font-size: 1.8rem;
+    font-weight: 300;
+    color: #2c3e50;
+}
+
+/* Four scenarios grid - clean and thin layout */
+.scenarios {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.scenario {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 8px;
+    padding: 25px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.scenario:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+.scenario-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.scenario h3 {
+    font-size: 1.3rem;
+    font-weight: 400;
+    color: #2c3e50;
+}
+
+.risk-indicator {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: 1px solid;
+}
+
+.risk-indicator.low {
+    background: rgba(46, 204, 113, 0.1);
+    color: #27ae60;
+    border-color: #27ae60;
+}
+
+.risk-indicator.medium {
+    background: rgba(241, 196, 15, 0.1);
+    color: #f39c12;
+    border-color: #f39c12;
+}
+
+.risk-indicator.high {
+    background: rgba(231, 76, 60, 0.1);
+    color: #e74c3c;
+    border-color: #e74c3c;
+}
+
+.scenario p {
+    color: #7f8c8d;
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+}
+
+.scenario-controls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.engage-btn, .withdraw-btn {
+    flex: 1;
+    padding: 10px 16px;
+    border: 1px solid;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.engage-btn {
+    background: rgba(52, 152, 219, 0.1);
+    color: #3498db;
+    border-color: #3498db;
+}
+
+.engage-btn:hover:not(:disabled) {
+    background: #3498db;
+    color: white;
+}
+
+.withdraw-btn {
+    background: rgba(231, 76, 60, 0.1);
+    color: #e74c3c;
+    border-color: #e74c3c;
+}
+
+.withdraw-btn:hover:not(:disabled) {
+    background: #e74c3c;
+    color: white;
+}
+
+.engage-btn:disabled, .withdraw-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Thin risk meter */
+.risk-meter {
+    height: 2px;
+    background: rgba(0,0,0,0.1);
+    border-radius: 1px;
+    overflow: hidden;
+}
+
+.risk-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #27ae60, #f39c12, #e74c3c);
+    width: 0%;
+    transition: width 0.5s ease;
+}
+
+/* Instructions with thin styling */
+.instructions {
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 8px;
+    padding: 25px;
+    margin-bottom: 30px;
+}
+
+.instructions h3 {
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: #2c3e50;
+    margin-bottom: 15px;
+}
+
+.instructions ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.instructions li {
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    color: #555;
+    font-size: 0.95rem;
+}
+
+.instructions li:last-child {
+    border-bottom: none;
+}
+
+.instructions strong {
+    color: #2c3e50;
+    font-weight: 500;
+}
+
+/* Game actions */
+.game-actions {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.game-actions button {
+    padding: 12px 24px;
+    border: 1px solid #3498db;
+    background: rgba(52, 152, 219, 0.1);
+    color: #3498db;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.2s ease;
+}
+
+.game-actions button:hover {
+    background: #3498db;
+    color: white;
+}
+
+/* Live updates - thin scrollable feed */
+.live-updates {
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.live-updates h3 {
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: #2c3e50;
+    margin-bottom: 15px;
+}
+
+.updates-feed {
+    max-height: 150px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.updates-feed p {
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    color: #555;
+    font-size: 0.9rem;
+    animation: fadeIn 0.5s ease;
+}
+
+.updates-feed p:last-child {
+    border-bottom: none;
+}
+
+/* Animations for live updates */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Engaged scenario styling */
+.scenario.engaged {
+    background: rgba(52, 152, 219, 0.05);
+    border-color: #3498db;
+}
+
+.scenario.engaged .risk-fill {
+    animation: riskPulse 2s ease-in-out infinite;
+}
+
+@keyframes riskPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .live-stats {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .scenarios {
+        grid-template-columns: 1fr;
+    }
+    
+    .game-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .game-actions button {
+        width: 200px;
+    }
+}

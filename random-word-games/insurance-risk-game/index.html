@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Four Lives Insurance - Risk Assessment Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Four Lives Insurance</h1>
+            <p class="tagline">Navigate life's risks, make smart choices</p>
+        </header>
+
+        <div class="game-board">
+            <!-- Live Score Display -->
+            <div class="live-stats">
+                <div class="stat">
+                    <span class="label">Coverage Score</span>
+                    <span class="value" id="coverageScore">100</span>
+                </div>
+                <div class="stat">
+                    <span class="label">Risk Level</span>
+                    <span class="value" id="riskLevel">Low</span>
+                </div>
+                <div class="stat">
+                    <span class="label">Premium</span>
+                    <span class="value" id="premium">$150/month</span>
+                </div>
+            </div>
+
+            <!-- Four Life Scenarios -->
+            <div class="scenarios">
+                <div class="scenario" data-scenario="adventure">
+                    <div class="scenario-header">
+                        <h3>Adventure Life</h3>
+                        <span class="risk-indicator low">Low Risk</span>
+                    </div>
+                    <p>Rock climbing, skydiving, extreme sports</p>
+                    <div class="scenario-controls">
+                        <button class="engage-btn" data-action="engage">Engage</button>
+                        <button class="withdraw-btn" data-action="withdraw" disabled>Withdraw</button>
+                    </div>
+                    <div class="risk-meter">
+                        <div class="risk-fill"></div>
+                    </div>
+                </div>
+
+                <div class="scenario" data-scenario="travel">
+                    <div class="scenario-header">
+                        <h3>Global Traveler</h3>
+                        <span class="risk-indicator low">Low Risk</span>
+                    </div>
+                    <p>International business, frequent flights</p>
+                    <div class="scenario-controls">
+                        <button class="engage-btn" data-action="engage">Engage</button>
+                        <button class="withdraw-btn" data-action="withdraw" disabled>Withdraw</button>
+                    </div>
+                    <div class="risk-meter">
+                        <div class="risk-fill"></div>
+                    </div>
+                </div>
+
+                <div class="scenario" data-scenario="health">
+                    <div class="scenario-header">
+                        <h3>Health Conscious</h3>
+                        <span class="risk-indicator low">Low Risk</span>
+                    </div>
+                    <p>Regular exercise, healthy diet, wellness focus</p>
+                    <div class="scenario-controls">
+                        <button class="engage-btn" data-action="engage">Engage</button>
+                        <button class="withdraw-btn" data-action="withdraw" disabled>Withdraw</button>
+                    </div>
+                    <div class="risk-meter">
+                        <div class="risk-fill"></div>
+                    </div>
+                </div>
+
+                <div class="scenario" data-scenario="career">
+                    <div class="scenario-header">
+                        <h3>High Achiever</h3>
+                        <span class="risk-indicator low">Low Risk</span>
+                    </div>
+                    <p>Stressful job, long hours, high responsibility</p>
+                    <div class="scenario-controls">
+                        <button class="engage-btn" data-action="engage">Engage</button>
+                        <button class="withdraw-btn" data-action="withdraw" disabled>Withdraw</button>
+                    </div>
+                    <div class="risk-meter">
+                        <div class="risk-fill"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Instructions -->
+            <div class="instructions">
+                <h3>How to Play</h3>
+                <ul>
+                    <li>Choose which of the <strong>four</strong> life scenarios to engage with</li>
+                    <li>Watch your risk levels update in <strong>live</strong> time</li>
+                    <li>Use the <strong>withdraw</strong> button to exit high-risk situations</li>
+                    <li>Maintain optimal coverage with our <strong>thin</strong>, streamlined approach</li>
+                    <li>Balance risk and reward for the best <strong>insurance</strong> outcome</li>
+                </ul>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="game-actions">
+                <button id="resetGame">Reset Game</button>
+                <button id="optimizePolicy">Optimize Policy</button>
+            </div>
+
+            <!-- Live Updates Panel -->
+            <div class="live-updates">
+                <h3>Live Updates</h3>
+                <div class="updates-feed" id="updatesFeed">
+                    <p>Welcome to Four Lives Insurance! Choose your scenarios to begin.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
