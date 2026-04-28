@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Downloader</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0f0f0f;
+            color: #e0e0e0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 700px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 0.4rem;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+        }
+
+        .input-row {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+        }
+
+        input[type="url"] {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            background: #1a1a1a;
+            border: 1px solid #2e2e2e;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 0.95rem;
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        input[type="url"]:focus { border-color: #555; }
+        input[type="url"]::placeholder { color: #444; }
+
+        button {
+            padding: 0.75rem 1.5rem;
+            background: #1e1e1e;
+            border: 1px solid #3a3a3a;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 0.95rem;
+            font-family: inherit;
+            cursor: pointer;
+            transition: background 0.2s, border-color 0.2s;
+            white-space: nowrap;
+        }
+
+        button:hover { background: #2a2a2a; border-color: #555; }
+        button:disabled { opacity: 0.4; cursor: not-allowed; }
+
+        .status {
+            text-align: center;
+            color: #555;
+            padding: 2.5rem;
+            font-size: 0.9rem;
+        }
+
+        .error {
+            background: #1f0e0e;
+            border: 1px solid #4a1f1f;
+            border-radius: 8px;
+            padding: 1rem 1.25rem;
+            color: #e07070;
+            font-size: 0.88rem;
+            line-height: 1.5;
+        }
+
+        .video-info {
+            display: flex;
+            gap: 1.25rem;
+            margin-bottom: 2rem;
+            align-items: flex-start;
+        }
+
+        .thumb {
+            width: 180px;
+            min-width: 180px;
+            height: 102px;
+            object-fit: cover;
+            border-radius: 6px;
+        }
+
+        .thumb-placeholder {
+            width: 180px;
+            min-width: 180px;
+            height: 102px;
+            background: #1a1a1a;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+            font-size: 2rem;
+        }
+
+        .meta h2 {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #f0f0f0;
+            line-height: 1.5;
+            margin-bottom: 0.35rem;
+        }
+
+        .meta p {
+            color: #666;
+            font-size: 0.83rem;
+        }
+
+        .section-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.09em;
+            color: #444;
+            margin-bottom: 0.6rem;
+        }
+
+        .format-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .format-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #141414;
+            border: 1px solid #222;
+            border-radius: 8px;
+            padding: 0.7rem 1rem;
+            transition: border-color 0.15s;
+        }
+
+        .format-row:hover { border-color: #333; }
+
+        .format-label { display: flex; flex-direction: column; gap: 0.15rem; }
+
+        .format-name {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #ddd;
+        }
+
+        .format-detail {
+            font-size: 0.78rem;
+            color: #555;
+        }
+
+        .dl-btn {
+            padding: 0.38rem 0.9rem;
+            font-size: 0.82rem;
+            border-radius: 6px;
+            text-decoration: none;
+            color: #ddd;
+            background: #1e1e1e;
+            border: 1px solid #3a3a3a;
+            cursor: pointer;
+            transition: background 0.15s, border-color 0.15s;
+            font-family: inherit;
+        }
+
+        .dl-btn:hover { background: #2a2a2a; border-color: #555; }
+
+        .copy-btn {
+            padding: 0.38rem 0.9rem;
+            font-size: 0.82rem;
+            border-radius: 6px;
+            color: #aad4ff;
+            background: #0e1a26;
+            border: 1px solid #1e3a55;
+            cursor: pointer;
+            transition: background 0.15s, border-color 0.15s;
+            font-family: inherit;
+            white-space: nowrap;
+        }
+
+        .copy-btn:hover { background: #142030; border-color: #2a5080; }
+        .copy-btn.copied { color: #7ed9a0; background: #0e2018; border-color: #1e4530; }
+
+        .live-badge {
+            display: inline-block;
+            background: #c0392b;
+            color: #fff;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            padding: 0.15rem 0.45rem;
+            border-radius: 4px;
+            vertical-align: middle;
+            margin-left: 0.5rem;
+            position: relative;
+            top: -1px;
+        }
+
+        .upcoming-badge {
+            display: inline-block;
+            background: #1a4a7a;
+            color: #aad4ff;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            padding: 0.15rem 0.45rem;
+            border-radius: 4px;
+            vertical-align: middle;
+            margin-left: 0.5rem;
+            position: relative;
+            top: -1px;
+        }
+
+        .stream-hint {
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            color: #557799;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 560px) {
+            .video-info { flex-direction: column; }
+            .thumb, .thumb-placeholder { width: 100%; min-width: unset; height: 180px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Video Downloader</h1>
+        <p class="subtitle">Paste a video URL to see available download formats</p>
+        <div class="input-row">
+            <input type="url" id="url-input" placeholder="https://www.youtube.com/watch?v=..." autocomplete="off" spellcheck="false">
+            <button id="fetch-btn" onclick="fetchInfo()">Fetch</button>
+        </div>
+        <div id="output"></div>
+    </div>
+
+    <script>
+        async function fetchInfo() {
+            const url = document.getElementById('url-input').value.trim();
+            if (!url) return;
+
+            const btn = document.getElementById('fetch-btn');
+            const out = document.getElementById('output');
+
+            btn.disabled = true;
+            btn.textContent = 'Loading…';
+            out.innerHTML = '<div class="status">Fetching video info…</div>';
+
+            try {
+                const res = await fetch('/api/ytdlp', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ url }),
+                });
+                const data = await res.json();
+
+                if (!res.ok || data.error) {
+                    out.innerHTML = `<div class="error">Error: ${esc(data.error || 'Failed to fetch video info')}</div>`;
+                    return;
+                }
+
+                render(data);
+            } catch (e) {
+                out.innerHTML = `<div class="error">Error: ${esc(e.message)}</div>`;
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Fetch';
+            }
+        }
+
+        function render(data) {
+            const out = document.getElementById('output');
+
+            const thumbHtml = data.thumbnail
+                ? `<img class="thumb" src="${esc(data.thumbnail)}" alt="" onerror="this.replaceWith(makePlaceholder())">`
+                : `<div class="thumb-placeholder">🎬</div>`;
+
+            const isLive = data.is_live || data.live_status === 'is_live';
+            const isUpcoming = data.live_status === 'is_upcoming';
+
+            const badge = isLive
+                ? ' <span class="live-badge">LIVE</span>'
+                : isUpcoming
+                    ? ' <span class="upcoming-badge">UPCOMING</span>'
+                    : '';
+
+            const hint = isLive
+                ? '<p class="stream-hint">Live stream — copy a stream URL and open it in VLC, mpv, or a similar player.</p>'
+                : '';
+
+            const metaParts = [data.uploader];
+            if (!isLive && data.duration) metaParts.push(fmtDuration(data.duration));
+            const meta = metaParts.filter(Boolean).join(' · ');
+
+            const formats = buildFormats(data.formats, data.url, isLive);
+
+            const rows = formats.map(f => {
+                const action = f.isStream
+                    ? `<button class="copy-btn" onclick="copyUrl(this,'${esc(f.url)}')">⎘ Copy URL</button>`
+                    : `<a class="dl-btn" href="${esc(f.url)}" target="_blank" rel="noopener">↓ Download</a>`;
+                return `
+                <div class="format-row">
+                    <div class="format-label">
+                        <span class="format-name">${esc(f.label)}</span>
+                        ${f.detail ? `<span class="format-detail">${esc(f.detail)}</span>` : ''}
+                    </div>
+                    ${action}
+                </div>`;
+            }).join('');
+
+            out.innerHTML = `
+                <div class="video-info">
+                    ${thumbHtml}
+                    <div class="meta">
+                        <h2>${esc(data.title || 'Untitled')}${badge}</h2>
+                        ${meta ? `<p>${esc(meta)}</p>` : ''}
+                        ${hint}
+                    </div>
+                </div>
+                <div class="section-label">${isLive ? 'Stream URLs' : 'Available Formats'}</div>
+                <div class="format-list">
+                    ${rows || '<div class="status">No URLs found for this video.</div>'}
+                </div>
+            `;
+        }
+
+        const STREAM_PROTOCOLS = new Set(['hls', 'm3u8', 'm3u8_native', 'dash', 'http_dash_segments', 'mhtml']);
+
+        function buildFormats(formats, fallbackUrl, isLive) {
+            if (!formats || formats.length === 0) {
+                return fallbackUrl ? [{ label: 'Best Quality', detail: '', url: fallbackUrl, isStream: isLive }] : [];
+            }
+
+            const result = [];
+            const seen = new Set();
+            const sorted = [...formats].sort((a, b) => (b.height || 0) - (a.height || 0));
+
+            for (const f of sorted) {
+                if (!f.url) continue;
+
+                const isStream = STREAM_PROTOCOLS.has(f.protocol);
+                const hasVideo = f.vcodec && f.vcodec !== 'none';
+                const hasAudio = f.acodec && f.acodec !== 'none';
+
+                let label, key;
+                if (isStream) {
+                    key = `stream-${f.protocol}-${f.height || f.id}`;
+                    label = f.height
+                        ? `${f.height}p`
+                        : (f.note || f.protocol.replace('_', ' ').toUpperCase());
+                } else if (hasVideo && hasAudio) {
+                    key = `av-${f.height || 'x'}`;
+                    label = f.height ? `${f.height}p` : (f.note || `Format ${f.id}`);
+                } else if (hasVideo) {
+                    key = `v-${f.height || 'x'}`;
+                    label = f.height ? `${f.height}p (video only)` : 'Video only';
+                } else if (hasAudio) {
+                    key = `a-${f.ext}-${f.id}`;
+                    label = `Audio only (${f.ext || 'audio'})`;
+                } else {
+                    continue;
+                }
+
+                if (seen.has(key)) continue;
+                seen.add(key);
+
+                // prefer manifest_url for stream formats — it's what players need
+                const dlUrl = (isStream && f.manifest_url) ? f.manifest_url : f.url;
+                const detail = isStream
+                    ? [f.ext, f.protocol].filter(Boolean).join(' · ')
+                    : [f.ext, fmtSize(f.filesize)].filter(Boolean).join(' · ');
+
+                result.push({ label, detail, url: dlUrl, isStream });
+
+                if (result.length >= 10) break;
+            }
+
+            return result;
+        }
+
+        async function copyUrl(btn, url) {
+            try {
+                await navigator.clipboard.writeText(url);
+                const prev = btn.textContent;
+                btn.textContent = '✓ Copied';
+                btn.classList.add('copied');
+                setTimeout(() => { btn.textContent = prev; btn.classList.remove('copied'); }, 2000);
+            } catch {
+                prompt('Copy this stream URL:', url);
+            }
+        }
+
+        function fmtDuration(secs) {
+            if (!secs) return '';
+            const h = Math.floor(secs / 3600);
+            const m = Math.floor((secs % 3600) / 60);
+            const s = secs % 60;
+            return h > 0
+                ? `${h}:${pad(m)}:${pad(s)}`
+                : `${m}:${pad(s)}`;
+        }
+
+        function fmtSize(bytes) {
+            if (!bytes) return '';
+            return bytes < 1048576
+                ? `${(bytes / 1024).toFixed(0)} KB`
+                : `${(bytes / 1048576).toFixed(1)} MB`;
+        }
+
+        function pad(n) { return String(n).padStart(2, '0'); }
+
+        function esc(str) {
+            const d = document.createElement('div');
+            d.textContent = String(str || '');
+            return d.innerHTML;
+        }
+
+        function makePlaceholder() {
+            const d = document.createElement('div');
+            d.className = 'thumb-placeholder';
+            d.textContent = '🎬';
+            return d;
+        }
+
+        document.getElementById('url-input').addEventListener('keydown', e => {
+            if (e.key === 'Enter') fetchInfo();
+        });
+    </script>
+</body>
+</html>
