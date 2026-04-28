@@ -189,6 +189,59 @@
 
         .dl-btn:hover { background: #2a2a2a; border-color: #555; }
 
+        .copy-btn {
+            padding: 0.38rem 0.9rem;
+            font-size: 0.82rem;
+            border-radius: 6px;
+            color: #aad4ff;
+            background: #0e1a26;
+            border: 1px solid #1e3a55;
+            cursor: pointer;
+            transition: background 0.15s, border-color 0.15s;
+            font-family: inherit;
+            white-space: nowrap;
+        }
+
+        .copy-btn:hover { background: #142030; border-color: #2a5080; }
+        .copy-btn.copied { color: #7ed9a0; background: #0e2018; border-color: #1e4530; }
+
+        .live-badge {
+            display: inline-block;
+            background: #c0392b;
+            color: #fff;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            padding: 0.15rem 0.45rem;
+            border-radius: 4px;
+            vertical-align: middle;
+            margin-left: 0.5rem;
+            position: relative;
+            top: -1px;
+        }
+
+        .upcoming-badge {
+            display: inline-block;
+            background: #1a4a7a;
+            color: #aad4ff;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            padding: 0.15rem 0.45rem;
+            border-radius: 4px;
+            vertical-align: middle;
+            margin-left: 0.5rem;
+            position: relative;
+            top: -1px;
+        }
+
+        .stream-hint {
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            color: #557799;
+            line-height: 1.5;
+        }
+
         @media (max-width: 560px) {
             .video-info { flex-direction: column; }
             .thumb, .thumb-placeholder { width: 100%; min-width: unset; height: 180px; }
@@ -247,37 +300,60 @@
                 ? `<img class="thumb" src="${esc(data.thumbnail)}" alt="" onerror="this.replaceWith(makePlaceholder())">`
                 : `<div class="thumb-placeholder">🎬</div>`;
 
-            const meta = [data.uploader, fmtDuration(data.duration)].filter(Boolean).join(' · ');
-            const formats = buildFormats(data.formats, data.url);
+            const isLive = data.is_live || data.live_status === 'is_live';
+            const isUpcoming = data.live_status === 'is_upcoming';
 
-            const rows = formats.map(f => `
+            const badge = isLive
+                ? ' <span class="live-badge">LIVE</span>'
+                : isUpcoming
+                    ? ' <span class="upcoming-badge">UPCOMING</span>'
+                    : '';
+
+            const hint = isLive
+                ? '<p class="stream-hint">Live stream — copy a stream URL and open it in VLC, mpv, or a similar player.</p>'
+                : '';
+
+            const metaParts = [data.uploader];
+            if (!isLive && data.duration) metaParts.push(fmtDuration(data.duration));
+            const meta = metaParts.filter(Boolean).join(' · ');
+
+            const formats = buildFormats(data.formats, data.url, isLive);
+
+            const rows = formats.map(f => {
+                const action = f.isStream
+                    ? `<button class="copy-btn" onclick="copyUrl(this,'${esc(f.url)}')">⎘ Copy URL</button>`
+                    : `<a class="dl-btn" href="${esc(f.url)}" target="_blank" rel="noopener">↓ Download</a>`;
+                return `
                 <div class="format-row">
                     <div class="format-label">
                         <span class="format-name">${esc(f.label)}</span>
                         ${f.detail ? `<span class="format-detail">${esc(f.detail)}</span>` : ''}
                     </div>
-                    <a class="dl-btn" href="${esc(f.url)}" target="_blank" rel="noopener">↓ Download</a>
-                </div>
-            `).join('');
+                    ${action}
+                </div>`;
+            }).join('');
 
             out.innerHTML = `
                 <div class="video-info">
                     ${thumbHtml}
                     <div class="meta">
-                        <h2>${esc(data.title || 'Untitled')}</h2>
+                        <h2>${esc(data.title || 'Untitled')}${badge}</h2>
                         ${meta ? `<p>${esc(meta)}</p>` : ''}
+                        ${hint}
                     </div>
                 </div>
-                <div class="section-label">Available Formats</div>
+                <div class="section-label">${isLive ? 'Stream URLs' : 'Available Formats'}</div>
                 <div class="format-list">
-                    ${rows || '<div class="status">No direct download URLs found for this video.</div>'}
+                    ${rows || '<div class="status">No URLs found for this video.</div>'}
                 </div>
             `;
         }
 
-        function buildFormats(formats, fallbackUrl) {
+        const STREAM_PROTOCOLS = new Set(['hls', 'm3u8', 'm3u8_native', 'dash', 'http_dash_segments', 'mhtml']);
+
+        function buildFormats(formats, fallbackUrl, isLive) {
             if (!formats || formats.length === 0) {
-                return fallbackUrl ? [{ label: 'Best Quality', detail: '', url: fallbackUrl }] : [];
+                return fallbackUrl ? [{ label: 'Best Quality', detail: '', url: fallbackUrl, isStream: isLive }] : [];
             }
 
             const result = [];
@@ -287,11 +363,17 @@
             for (const f of sorted) {
                 if (!f.url) continue;
 
+                const isStream = STREAM_PROTOCOLS.has(f.protocol);
                 const hasVideo = f.vcodec && f.vcodec !== 'none';
                 const hasAudio = f.acodec && f.acodec !== 'none';
 
                 let label, key;
-                if (hasVideo && hasAudio) {
+                if (isStream) {
+                    key = `stream-${f.protocol}-${f.height || f.id}`;
+                    label = f.height
+                        ? `${f.height}p`
+                        : (f.note || f.protocol.replace('_', ' ').toUpperCase());
+                } else if (hasVideo && hasAudio) {
                     key = `av-${f.height || 'x'}`;
                     label = f.height ? `${f.height}p` : (f.note || `Format ${f.id}`);
                 } else if (hasVideo) {
@@ -307,13 +389,30 @@
                 if (seen.has(key)) continue;
                 seen.add(key);
 
-                const detail = [f.ext, fmtSize(f.filesize)].filter(Boolean).join(' · ');
-                result.push({ label, detail, url: f.url });
+                // prefer manifest_url for stream formats — it's what players need
+                const dlUrl = (isStream && f.manifest_url) ? f.manifest_url : f.url;
+                const detail = isStream
+                    ? [f.ext, f.protocol].filter(Boolean).join(' · ')
+                    : [f.ext, fmtSize(f.filesize)].filter(Boolean).join(' · ');
 
-                if (result.length >= 8) break;
+                result.push({ label, detail, url: dlUrl, isStream });
+
+                if (result.length >= 10) break;
             }
 
             return result;
+        }
+
+        async function copyUrl(btn, url) {
+            try {
+                await navigator.clipboard.writeText(url);
+                const prev = btn.textContent;
+                btn.textContent = '✓ Copied';
+                btn.classList.add('copied');
+                setTimeout(() => { btn.textContent = prev; btn.classList.remove('copied'); }, 2000);
+            } catch {
+                prompt('Copy this stream URL:', url);
+            }
         }
 
         function fmtDuration(secs) {

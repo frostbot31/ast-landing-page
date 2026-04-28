@@ -39,6 +39,8 @@ class handler(BaseHTTPRequestHandler):
                     "width": f.get("width"),
                     "filesize": f.get("filesize"),
                     "url": f.get("url", ""),
+                    "manifest_url": f.get("manifest_url", ""),
+                    "protocol": f.get("protocol", ""),
                     "vcodec": f.get("vcodec", "none"),
                     "acodec": f.get("acodec", "none"),
                     "note": f.get("format_note", ""),
@@ -49,6 +51,8 @@ class handler(BaseHTTPRequestHandler):
                 "thumbnail": info.get("thumbnail", ""),
                 "duration": info.get("duration"),
                 "uploader": info.get("uploader", ""),
+                "is_live": info.get("is_live", False),
+                "live_status": info.get("live_status", ""),
                 "formats": formats,
                 "url": info.get("url", ""),
             })
